@@ -1,11 +1,3 @@
-// Напиши скрипт для создания галереи изображений по массиву данных.В HTML есть список ul.gallery.
-
-// < ul class="gallery" ></ >
-
-//   Используй массив объектов images для создания элементов < img > вложенных в < li >.Для создания разметки используй шаблонные строки и метод insertAdjacentHTML().
-
-// Все элементы галереи должны добавляться в DOM за одну операцию вставки.
-// Добавь минимальное оформление галереи флексбоксами или гридами через CSS классы.
 
 
 const images = [
@@ -23,19 +15,38 @@ const images = [
   },
 ];
 
-const galleryEl = images.map(image => {
-  const galleryItem = document.createElement('li');
-  const galleryEl = document.createElement('img');
-  galleryEl.src = image.url;
-  galleryEl.alt = image.alt;
+// const galleryEl = images.map(image => {
+//   const galleryItem = document.createElement('li');
+//   const galleryEl = document.createElement('img');
+//   galleryEl.src = image.url;
+//   galleryEl.alt = image.alt;
+//   galleryEl.width = 600;
 
-  galleryItem.appendChild(galleryEl);
+//   galleryItem.appendChild(galleryEl);
 
-  console.log(galleryItem, galleryEl);
-  return galleryItem;
-});
+//   console.log(galleryItem, galleryEl);
+//   return galleryItem;
+// });
 
-const galleryList = document.querySelector('.gallery');
-galleryList.append(...galleryEl);
-console.log(galleryEl);
-console.log(galleryList);
+// const galleryList = document.querySelector('.gallery');
+// galleryList.append(...galleryEl);
+// console.log(galleryEl);
+// console.log(galleryList);
+
+
+const makeGalleryMarkup = ({ url, alt, }) => {
+  return `
+  <li class = gallery__item>
+    <img src=${url} alt:${alt} class=gallery__img />
+  </li>`;
+
+};
+
+// console.log(makeGalleryMarkup(images[0]));
+
+
+const galleryEl = document.querySelector('.gallery');
+
+const makeGalleryItems = images.map(makeGalleryMarkup).join('');
+galleryEl.insertAdjacentHTML('afterbegin', makeGalleryItems);
+console.log(makeGalleryItems)
